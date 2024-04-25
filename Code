@@ -1,12 +1,36 @@
-Experiment 8
-
-import seaborn as sns
-import pandas as pd
-import matplotlib.pyplot as plt
-
-iris=pd.read_csv('iris.csv')
+use student
+db.createCollection("mycollection")
+show dbs
+show collections
 
 
-sns.heatmap(iris.corr(numeric_only=True), annot=True, cmap='summer')
-plt.show()
+db.student.insert({name:"naman raj"})
+db.student.insertOne({name:"majid",RegNo : 321})
+db.student.insertMany([{name:"majid",RegNo : 321},{name:"karan",RegNo : 421}])
+//db.student.update({name:"naman raj"},{$set:{name:"naman"}})
+db.student.updateMany({name:"majid",RegNo :321},{$set:{name:"fasi",RegNo:123}})
 
+
+db.student.find()
+// db.student.find().pretty()
+// db.student.findOne({name:"majid"})
+//db.student.find({$and:[{name:"majid"},{RegNo:321}]})
+// db.student.find({$or:[{name:"karan"},{regNo:321}]})
+// db.student.find()
+ //db.student.find({$nor:[{name:"majid"},{RegNo:321}]})
+// db.student.find({"RegNo":{$not:{$gt:50}}})
+
+
+//db.student.find({},{"RegNo":1,"name":1,_id:0}).limit(4)
+//db.student.find({},{"RegNo":1,"name":1,_id:0}).limit(4).skip(1)
+//db.student.find({},{"RegNo":1,_id:0}).sort({RegNo:-1})
+
+
+db.student.createIndex(
+  {
+    "RegNo": 1,
+    "name": -1
+  }
+)
+db.student.dropIndexes({"name":-1})
+db.student.getIndexes()
